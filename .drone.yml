@@ -1,0 +1,9 @@
+kind: pipeline
+
+steps:
+  - image: golang:1.13
+    name: check
+    commands:
+      - go vet -t -v ./...
+      - go vet .
+      - go test -v race ./...
