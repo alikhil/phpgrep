@@ -12,7 +12,7 @@ type Compiler struct {
 
 // Compile compiler a given pattern into a matcher.
 func (c *Compiler) Compile(pattern []byte, filters ...Filter) (*Matcher, error) {
-	return compile(c, pattern, filters)
+	return nil, nil
 }
 
 type Filter struct {
