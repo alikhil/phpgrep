@@ -2,8 +2,29 @@ kind: pipeline
 
 steps:
   - image: golang:1.13
-    name: check
+    name: install dependencies
     commands:
       - go get -t -v ./...
+
+  - image: golang:1.13
+    name: run go vet
+    commands:
       - go vet .
+
+  - image: golang:1.13
+    name: test
+    commands:
       - go test -v -race ./...
+
+  - name: send telegram notification
+    image: appleboy/drone-telegram
+    when:
+      status:
+        - success
+        - failure
+    settings:
+      token: 
+        from_secret: telegram_token
+      to: -1001377244858
+
+  
