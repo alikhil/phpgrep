@@ -16,15 +16,10 @@ steps:
     commands:
       - go test -v -race ./...
 
-  - name: send telegram notification
-    image: appleboy/drone-telegram
-    when:
-      status:
-        - success
-        - failure
+  - name: test webhook
+    image: alikhil/webhook:1.0
     settings:
-      token: 
-        from_secret: telegram_token
-      to: -1001377244858
+      url: https://api.telegram.org/bot1064394215:AAEvwEIHv1QL3jMeLQKSHHJOj-ndKJZE3TQ/sendMessage?chat_id=@drone_golang&text=hello%20world
+      method: GET
 
   
