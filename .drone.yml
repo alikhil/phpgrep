@@ -18,6 +18,10 @@ steps:
 
   - name: send telegram notification
     image: appleboy/drone-telegram
+    when: 
+      status:
+        - success
+        - failure
     settings:
       token:
         from_secret: TELEGRAM_TOKEN
