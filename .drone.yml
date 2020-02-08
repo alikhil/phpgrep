@@ -16,3 +16,10 @@ steps:
     image: golang:1.13.1
     commands:
       - go test -v -race ./...
+
+  - name: send telegram notification
+    image: appleboy/drone-telegram
+    settings:
+      token:
+        from_secret: TELEGRAM_TOKEN
+      to: -1001377244858
