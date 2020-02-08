@@ -2,9 +2,17 @@ kind: pipeline
 
 steps:
 
-  - name: build and check
+  - name: install deps
     image: golang:1.13.1
     commands:
       - go get -t -v ./...
+
+  - name: vet
+    image: golang:1.13.1
+    commands:
       - go vet .
+
+  - name: test
+    image: golang:1.13.1
+    commands:
       - go test -v -race ./...
