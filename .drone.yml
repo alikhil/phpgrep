@@ -1,27 +1,10 @@
 kind: pipeline
 
 steps:
-  - image: golang:1.13.1
-    name: install dependencies
+
+  - name: build and check
+    image: golang:1.13.1
     commands:
       - go get -t -v ./...
-
-  - image: golang:1.13.1
-    name: vet
-    commands:
       - go vet .
-
-  - image: golang:1.13.1
-    name: test
-    commands:
       - go test -v -race ./...
-
-  - name: send telegram notification
-    image: alikhil/webhook-go:1.0
-    when: 
-      status:
-        - success
-        - failure
-    settings:
-      url: https://api.telegram.org/bot1064394215:AAEvwEIHv1QL3jMeLQKSHHJOj-ndKJZE3TQ/sendMessage?chat_id=@drone_golang&text=hello%20world
-      method: GET
